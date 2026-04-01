@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Category Dropdown
               DropdownButtonFormField<int>(
                 decoration: const InputDecoration(labelText: "Select Category", border: OutlineInputBorder()),
-                value: selectedCategoryId,
+                initialValue: selectedCategoryId,
                 hint: userProvider.categories.isEmpty ? const Text('No categories available') : null,
                 items: userProvider.categories.map((cat) {
                   return DropdownMenuItem<int>(
@@ -237,8 +237,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           onDismissed: (direction) async {
                             final idVal = task['id'];
                             int? parsedId;
-                            if (idVal is int) parsedId = idVal;
-                            else parsedId = int.tryParse(idVal?.toString() ?? '');
+                            if (idVal is int) {
+                              parsedId = idVal;
+                            } else {
+                              parsedId = int.tryParse(idVal?.toString() ?? '');
+                            }
 
                             if (parsedId != null) {
                               await userProvider.deleteTask(parsedId);
@@ -298,11 +301,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         } else if (id is String) {
                                           final parsed = int.tryParse(id);
-                                          if (parsed != null)
+                                          if (parsed != null) {
                                             await userProvider.toggleTaskCompletion(
                                               parsed,
                                               val,
                                             );
+                                          }
                                         }
                                       },
                                     ),
@@ -332,8 +336,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         if (confirmed == true) {
                                           final idVal = task['id'];
                                           int? parsedId;
-                                          if (idVal is int) parsedId = idVal;
-                                          else parsedId = int.tryParse(idVal?.toString() ?? '');
+                                          if (idVal is int) {
+                                            parsedId = idVal;
+                                          } else {
+                                            parsedId = int.tryParse(idVal?.toString() ?? '');
+                                          }
 
                                           if (parsedId != null) {
                                             await userProvider.deleteTask(parsedId);

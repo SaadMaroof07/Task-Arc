@@ -1,0 +1,1 @@
+db.sqlite3  rm --cached TaskArc/Backend/db.sqlite3
